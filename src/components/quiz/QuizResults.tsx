@@ -358,14 +358,17 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
             tooltipText={TOOLTIP_TEXT}
             className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'bg-[#E67E22] text-white shadow-lg hover:bg-[#CF6E19]'
-                : 'bg-muted text-muted-foreground cursor-not-allowed'
+                ? 'border-2 border-accent text-accent bg-transparent hover:bg-accent/10'
+                : 'border-2 border-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
             Согласовать тему с редактором
           </DisableableButton>
         ) : (
           <div className="flex flex-col items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide bg-accent text-accent-foreground">
+              Согласовать тему с редактором
+            </div>
             <p className="font-body text-sm text-muted-foreground">Выберите мессенджер:</p>
             <div className="flex gap-3 w-full">
               <button
@@ -385,20 +388,22 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
         )}
 
         {/* ── Think button ─────────────────────────────────── */}
-        <div className="mt-4 mb-4">
-          <DisableableButton
-            onClick={handleThinkClick}
-            disabled={!consentPD}
-            tooltipText={TOOLTIP_TEXT}
-            className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-body font-medium text-sm transition-all duration-200 active:scale-[0.98] ${
-              consentPD
-                ? 'bg-muted text-muted-foreground hover:bg-muted/80'
-                : 'bg-muted/50 text-muted-foreground/50 cursor-not-allowed'
-            }`}
-          >
-            📚 Хочу подумать
-          </DisableableButton>
-        </div>
+        {!showMessengerChoice && (
+          <div className="mt-4 mb-4">
+            <DisableableButton
+              onClick={handleThinkClick}
+              disabled={!consentPD}
+              tooltipText={TOOLTIP_TEXT}
+              className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-body font-medium text-sm transition-all duration-200 active:scale-[0.98] ${
+                consentPD
+                  ? 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  : 'bg-muted/50 text-muted-foreground/50 cursor-not-allowed'
+              }`}
+            >
+              📚 Хочу подумать
+            </DisableableButton>
+          </div>
+        )}
 
         <p className="font-body text-xs text-muted-foreground text-center">
           Проверим, свободна ли тема, и можно ли закрепить её за вами
