@@ -396,8 +396,8 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
               tooltipText={TOOLTIP_TEXT}
               className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-body font-medium text-sm transition-all duration-200 active:scale-[0.98] ${
                 consentPD
-                  ? 'bg-muted-foreground/20 text-muted-foreground/70 hover:bg-muted-foreground/30'
-                  : 'bg-muted-foreground/10 text-muted-foreground/30 cursor-not-allowed'
+                  ? 'bg-muted-foreground/40 text-foreground hover:bg-muted-foreground/50'
+                  : 'bg-muted-foreground/20 text-muted-foreground/50 cursor-not-allowed'
               }`}
             >
               Хочу подумать
