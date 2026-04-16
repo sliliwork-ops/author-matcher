@@ -97,6 +97,7 @@ function DisableableButton({
 export default function QuizResults({ result, answers, onApply, sessionId }: QuizResultsProps) {
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [showPriceDetails, setShowPriceDetails] = useState(false);
+  const [showMessengerChoice, setShowMessengerChoice] = useState(false);
   const [ownTopic, setOwnTopic] = useState('');
   const [showOwnTopic, setShowOwnTopic] = useState(false);
   const [showAllBooks, setShowAllBooks] = useState(false);
@@ -350,58 +351,49 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
         </div>
 
         {/* ── Main CTA ──────────────────────────────────── */}
-        <DisableableButton
-          onClick={handleTelegramClick}
-          disabled={!consentPD}
-          tooltipText={TOOLTIP_TEXT}
-          className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide transition-all duration-200 active:scale-[0.98] ${
-            consentPD
-              ? 'bg-[#E67E22] text-white shadow-lg hover:bg-[#CF6E19]'
-              : 'bg-muted text-muted-foreground cursor-not-allowed'
-          }`}
-        >
-          Согласовать тему с редактором
-        </DisableableButton>
-
-        {/* ── Messenger pills ──────────────────────────────── */}
-        <div className="flex items-center justify-center gap-2 mt-3 mb-4">
-          <span className="font-body text-xs text-muted-foreground">Написать в:</span>
+        {!showMessengerChoice ? (
           <DisableableButton
-            onClick={handleTelegramClick}
+            onClick={() => setShowMessengerChoice(true)}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
-            className={`px-4 py-1.5 rounded-full font-body font-medium text-xs transition-all duration-200 ${
+            className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'bg-accent text-accent-foreground hover:opacity-90'
+                ? 'bg-[#E67E22] text-white shadow-lg hover:bg-[#CF6E19]'
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
-            Telegram
+            Согласовать тему с редактором
           </DisableableButton>
-          <DisableableButton
-            onClick={handleMaxClick}
-            disabled={!consentPD}
-            tooltipText={TOOLTIP_TEXT}
-            className={`px-4 py-1.5 rounded-full font-body font-medium text-xs transition-all duration-200 border ${
-              consentPD
-                ? 'border-accent text-accent hover:bg-accent hover:text-accent-foreground'
-                : 'border-muted text-muted-foreground cursor-not-allowed'
-            }`}
-          >
-            MAX
-          </DisableableButton>
-        </div>
+        ) : (
+          <div className="flex flex-col items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+            <p className="font-body text-sm text-muted-foreground">Выберите мессенджер:</p>
+            <div className="flex gap-3 w-full">
+              <button
+                onClick={handleTelegramClick}
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-body font-bold text-sm tracking-wide bg-accent text-accent-foreground hover:opacity-90 transition-all duration-200 active:scale-[0.98]"
+              >
+                Telegram
+              </button>
+              <button
+                onClick={handleMaxClick}
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-body font-bold text-sm tracking-wide border border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-200 active:scale-[0.98]"
+              >
+                MAX
+              </button>
+            </div>
+          </div>
+        )}
 
-        {/* ── Think link ───────────────────────────────────── */}
-        <div className="text-center mb-4">
+        {/* ── Think button ─────────────────────────────────── */}
+        <div className="mt-4 mb-4">
           <DisableableButton
             onClick={handleThinkClick}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
-            className={`font-body text-sm underline underline-offset-4 transition-all duration-200 bg-transparent border-none ${
+            className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-body font-medium text-sm transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'text-muted-foreground hover:text-foreground'
-                : 'text-muted-foreground/50 cursor-not-allowed'
+                ? 'bg-muted text-muted-foreground hover:bg-muted/80'
+                : 'bg-muted/50 text-muted-foreground/50 cursor-not-allowed'
             }`}
           >
             📚 Хочу подумать
