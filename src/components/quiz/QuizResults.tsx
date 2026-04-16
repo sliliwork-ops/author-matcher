@@ -362,7 +362,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
-            🔥 Обсудить тему в Telegram
+            Согласовать тему с редактором в Telegram
           </DisableableButton>
 
           {/* Button 2 — MAX */}
@@ -376,7 +376,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
                 : 'border-muted text-muted-foreground cursor-not-allowed bg-transparent'
             }`}
           >
-            💬 Обсудить тему в MAX
+            Согласовать тему с редактором  в MAX
           </DisableableButton>
 
           {/* Button 3 — Think */}
