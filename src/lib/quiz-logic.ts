@@ -96,6 +96,45 @@ function scoreBook(bookId: string, answers: QuizAnswers): number {
     if (goal.includes('бренд') || goal.includes('медийн') || goal.includes('пр')) score += 1;
   }
 
+  if (bookId === 'women-money') {
+    if (audience.includes('женщин')) score += 6;
+    if (sphere.includes('маркетинг')) score += 3;
+    if (sphere.includes('финансы')) score += 3;
+    if (sphere.includes('консалтинг')) score += 3;
+    if (sphere.includes('личный бренд')) score += 3;
+    if (sphere.includes('психологи')) score += 3;
+    if (sphere.includes('коучинг')) score += 3;
+    if (sphere.includes('продажи')) score += 2;
+    if (sphere.includes('бизнес')) score += 2;
+    if (
+      requests.some(
+        (r) =>
+          r.includes('усилить продажи') ||
+          r.includes('поток клиентов') ||
+          r.includes('масштабировать') ||
+          r.includes('тупика') ||
+          r.includes('кризис')
+      )
+    )
+      score += 2;
+    if (
+      result.includes('доход') ||
+      result.includes('деньг') ||
+      result.includes('зарабат') ||
+      result.includes('потолок') ||
+      result.includes('монетиз') ||
+      result.includes('цен')
+    )
+      score += 2;
+    if (goal.includes('клиент') || goal.includes('бренд')) score += 1;
+    if (
+      format.includes('личная история') ||
+      format.includes('авторский') ||
+      format.includes('пошаговые')
+    )
+      score += 1;
+  }
+
   return score;
 }
 
