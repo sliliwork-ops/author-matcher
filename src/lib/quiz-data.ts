@@ -1,6 +1,7 @@
 import bookExpert from '@/assets/book-expert.jpg';
 import bookRealEstate from '@/assets/book-real-estate.jpg';
 import bookNovaya from '@/assets/book-novaya.jpg';
+import bookWomenMoney from '@/assets/book-women-money.jpg';
 
 export type QuestionType = 'single' | 'multi' | 'text';
 
@@ -159,6 +160,31 @@ export const BOOKS: Book[] = [
       'личный бренд',
       'блогинг',
       'медиа',
+    ],
+  },
+  {
+    id: 'women-money',
+    title: 'Женские деньги. Что мешает зарабатывать больше и как это изменить',
+    description:
+      'Для женщин-предпринимателей, бизнес-консультантов, маркетологов, финансовых консультантов, стилистов, специалистов по личному бренду, психологов и коучей с историей трансформации к устойчивому доходу.',
+    deadline: 'до 30.06.2026',
+    deadlineShort: '30.06.2026',
+    publishDate: 'окт. 2026',
+    coverImage: bookWomenMoney,
+    keywords: [
+      'женщины',
+      'деньги',
+      'доход',
+      'личный бренд',
+      'финансы',
+      'предприниматели',
+      'консалтинг',
+      'маркетинг',
+      'стиль',
+      'психология',
+      'коучинг',
+      'монетизация',
+      'экспертность',
     ],
   },
 ];
