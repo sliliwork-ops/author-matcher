@@ -349,55 +349,66 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
           <ConsentCheckbox checked={consentPD} onChange={() => setConsentPD((v) => !v)} />
         </div>
 
-        {/* ── CTA: messenger row ──────────────────────────── */}
-        <p className="font-body text-sm font-semibold text-foreground mb-2.5">
-          Согласовать тему с редактором:
-        </p>
-        <div className="flex gap-3 mb-4">
+        {/* ── Main CTA ──────────────────────────────────── */}
+        <DisableableButton
+          onClick={handleTelegramClick}
+          disabled={!consentPD}
+          tooltipText={TOOLTIP_TEXT}
+          className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide transition-all duration-200 active:scale-[0.98] ${
+            consentPD
+              ? 'bg-[#E67E22] text-white shadow-lg hover:bg-[#CF6E19]'
+              : 'bg-muted text-muted-foreground cursor-not-allowed'
+          }`}
+        >
+          Согласовать тему с редактором
+        </DisableableButton>
+
+        {/* ── Messenger pills ──────────────────────────────── */}
+        <div className="flex items-center justify-center gap-2 mt-3 mb-4">
+          <span className="font-body text-xs text-muted-foreground">Написать в:</span>
           <DisableableButton
             onClick={handleTelegramClick}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
-            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] ${
+            className={`px-4 py-1.5 rounded-full font-body font-medium text-xs transition-all duration-200 ${
               consentPD
-                ? 'bg-accent text-accent-foreground shadow-lg hover:opacity-90'
+                ? 'bg-accent text-accent-foreground hover:opacity-90'
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
             Telegram
           </DisableableButton>
-
           <DisableableButton
             onClick={handleMaxClick}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
-            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] border-2 ${
+            className={`px-4 py-1.5 rounded-full font-body font-medium text-xs transition-all duration-200 border ${
               consentPD
-                ? 'border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground'
-                : 'border-muted text-muted-foreground cursor-not-allowed bg-transparent'
+                ? 'border-accent text-accent hover:bg-accent hover:text-accent-foreground'
+                : 'border-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
             MAX
           </DisableableButton>
         </div>
 
-        {/* Button — Think */}
-        <div className="mb-4">
+        {/* ── Think link ───────────────────────────────────── */}
+        <div className="text-center mb-4">
           <DisableableButton
             onClick={handleThinkClick}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
-            className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl font-body font-medium text-sm tracking-wide transition-all duration-200 active:scale-[0.98] ${
+            className={`font-body text-sm underline underline-offset-4 transition-all duration-200 bg-transparent border-none ${
               consentPD
-                ? 'bg-muted text-muted-foreground hover:text-foreground'
-                : 'bg-muted text-muted-foreground cursor-not-allowed'
+                ? 'text-muted-foreground hover:text-foreground'
+                : 'text-muted-foreground/50 cursor-not-allowed'
             }`}
           >
             📚 Хочу подумать
           </DisableableButton>
         </div>
 
-        <p className="font-body text-xs text-muted-foreground text-center mt-2.5">
+        <p className="font-body text-xs text-muted-foreground text-center">
           Проверим, свободна ли тема, и можно ли закрепить её за вами
         </p>
       </div>
