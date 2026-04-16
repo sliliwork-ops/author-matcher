@@ -358,8 +358,8 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
             tooltipText={TOOLTIP_TEXT}
             className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'border-2 border-accent text-accent bg-transparent hover:bg-accent/10'
-                : 'border-2 border-muted text-muted-foreground cursor-not-allowed'
+                ? 'bg-accent text-accent-foreground shadow-lg hover:opacity-90'
+                : 'border-2 border-accent/40 text-accent/60 bg-transparent cursor-not-allowed'
             }`}
           >
             Согласовать тему с редактором
@@ -396,11 +396,11 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
               tooltipText={TOOLTIP_TEXT}
               className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-body font-medium text-sm transition-all duration-200 active:scale-[0.98] ${
                 consentPD
-                  ? 'bg-muted text-muted-foreground hover:bg-muted/80'
-                  : 'bg-muted/50 text-muted-foreground/50 cursor-not-allowed'
+                  ? 'bg-muted-foreground/20 text-muted-foreground/70 hover:bg-muted-foreground/30'
+                  : 'bg-muted-foreground/10 text-muted-foreground/30 cursor-not-allowed'
               }`}
             >
-              📚 Хочу подумать
+              Хочу подумать
             </DisableableButton>
           </div>
         )}
