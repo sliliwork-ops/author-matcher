@@ -1,21 +1,35 @@
 
 
-## Plan: Update CTA Button Colors on Results Screen
+## Plan: Redesign CTA block with clear hierarchy
 
-**File:** `src/components/quiz/QuizResults.tsx`, lines 352-395
+**Problem:** After compacting the messenger buttons, the main action ("Согласовать тему") потерялась — непонятно, как она соотносится с "Хочу подумать".
 
-### Changes
+**Solution:** Сделать одну большую главную кнопку «Согласовать тему с редактором» с выбором мессенджера, а «Хочу подумать» визуально отделить как текстовую ссылку.
 
-Replace the 3 CTA button class strings with the requested color hierarchy:
+### Layout (top to bottom)
 
-**Button 1 "Обсудить тему в Telegram"** (enabled state):
-- `bg-[#E67E22] text-white shadow-lg hover:bg-[#CF6E19]`
+```text
+┌─────────────────────────────────────────┐
+│  🟠  Согласовать тему с редактором      │  ← big orange button
+└─────────────────────────────────────────┘
+   Написать в:  [Telegram]  [MAX]          ← small pill buttons below
+                                           
+         Хочу подумать →                   ← text link, no box
+```
 
-**Button 2 "Обсудить тему в MAX"** (enabled state):
-- `border-[#E67E22] text-[#E67E22] bg-transparent hover:bg-[#E67E22] hover:text-white`
+### Changes in `src/components/quiz/QuizResults.tsx` (lines 352-402)
 
-**Button 3 "Хочу подумать"** (enabled state):
-- `bg-[#9CA3AF] text-white shadow-md hover:bg-[#6B7280]`
+1. **Main CTA** — full-width orange filled button (`bg-[#E67E22] text-white`), large padding, bold text. On click — opens Telegram by default (most popular).
 
-Disabled states remain unchanged (`bg-muted text-muted-foreground cursor-not-allowed`).
+2. **Messenger pills** — a small row below: "Написать в:" + two compact pill buttons (Telegram filled accent, MAX outlined). These just switch the messenger, same action.
+
+3. **"Хочу подумать"** — replace the gray button with a simple text link (`text-muted-foreground underline hover:text-foreground`), visually quiet. No box, no background.
+
+4. Keep the hint text "Проверим, свободна ли тема..." below.
+
+### Technical details
+
+- Single file edit: `src/components/quiz/QuizResults.tsx`, lines 352-402
+- No new components needed
+- Consent/disabled logic stays the same
 
