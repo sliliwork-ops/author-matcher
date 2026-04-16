@@ -349,44 +349,47 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
           <ConsentCheckbox checked={consentPD} onChange={() => setConsentPD((v) => !v)} />
         </div>
 
-        {/* ── 3 CTA buttons ─────────────────────────────────── */}
-        <div className="flex flex-col gap-3 mb-4">
-          {/* Button 1 — Telegram */}
+        {/* ── CTA: messenger row ──────────────────────────── */}
+        <p className="font-body text-sm font-semibold text-foreground mb-2.5">
+          Согласовать тему с редактором:
+        </p>
+        <div className="flex gap-3 mb-4">
           <DisableableButton
             onClick={handleTelegramClick}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
-            className={`w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] ${
+            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'bg-[#E67E22] text-white shadow-lg hover:bg-[#CF6E19]'
+                ? 'bg-accent text-accent-foreground shadow-lg hover:opacity-90'
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
-            Согласовать тему с редактором в Telegram
+            Telegram
           </DisableableButton>
 
-          {/* Button 2 — MAX */}
           <DisableableButton
             onClick={handleMaxClick}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
-            className={`w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] border-2 ${
+            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] border-2 ${
               consentPD
-                ? 'border-[#E67E22] text-[#E67E22] bg-transparent hover:bg-[#E67E22] hover:text-white'
+                ? 'border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground'
                 : 'border-muted text-muted-foreground cursor-not-allowed bg-transparent'
             }`}
           >
-            Согласовать тему с редактором  в MAX
+            MAX
           </DisableableButton>
+        </div>
 
-          {/* Button 3 — Think */}
+        {/* Button — Think */}
+        <div className="mb-4">
           <DisableableButton
             onClick={handleThinkClick}
             disabled={!consentPD}
             tooltipText={TOOLTIP_TEXT}
             className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl font-body font-medium text-sm tracking-wide transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'bg-[#9CA3AF] text-white shadow-md hover:bg-[#6B7280]'
+                ? 'bg-muted text-muted-foreground hover:text-foreground'
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
