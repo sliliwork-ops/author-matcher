@@ -1,35 +1,38 @@
 
 
-## Plan: Redesign CTA block with clear hierarchy
+## План: Кнопка «Согласовать тему» с выбором мессенджера по клику
 
-**Problem:** After compacting the messenger buttons, the main action ("Согласовать тему") потерялась — непонятно, как она соотносится с "Хочу подумать".
-
-**Solution:** Сделать одну большую главную кнопку «Согласовать тему с редактором» с выбором мессенджера, а «Хочу подумать» визуально отделить как текстовую ссылку.
-
-### Layout (top to bottom)
+**Идея:** Одна большая кнопка «Согласовать тему с редактором». При нажатии — раскрывается выбор из двух кнопок (Telegram / MAX). «Хочу подумать» — обычная кнопка как раньше.
 
 ```text
 ┌─────────────────────────────────────────┐
-│  🟠  Согласовать тему с редактором      │  ← big orange button
+│  🟠  Согласовать тему с редактором      │  ← клик раскрывает выбор
 └─────────────────────────────────────────┘
-   Написать в:  [Telegram]  [MAX]          ← small pill buttons below
-                                           
-         Хочу подумать →                   ← text link, no box
+        ↓ (после клика)
+   [Telegram]     [MAX]                    ← две кнопки появляются
+
+┌─────────────────────────────────────────┐
+│  📚  Хочу подумать                      │  ← обычная кнопка (muted)
+└─────────────────────────────────────────┘
 ```
 
-### Changes in `src/components/quiz/QuizResults.tsx` (lines 352-402)
+### Изменения в `QuizResults.tsx`
 
-1. **Main CTA** — full-width orange filled button (`bg-[#E67E22] text-white`), large padding, bold text. On click — opens Telegram by default (most popular).
+1. **Добавить состояние** `showMessengerChoice` (boolean) — управляет видимостью выбора мессенджера.
 
-2. **Messenger pills** — a small row below: "Написать в:" + two compact pill buttons (Telegram filled accent, MAX outlined). These just switch the messenger, same action.
+2. **Главная кнопка** — при клике вместо открытия Telegram → переключает `showMessengerChoice = true`. Текст меняется на «Выберите мессенджер:», кнопка становится неактивной визуально.
 
-3. **"Хочу подумать"** — replace the gray button with a simple text link (`text-muted-foreground underline hover:text-foreground`), visually quiet. No box, no background.
+3. **Выбор мессенджера** — появляется анимированно (`animate-in`) две кнопки в ряд:
+   - **Telegram** — зелёная/accent, при клике → `handleTelegramClick()`
+   - **MAX** — контурная, при клике → `handleMaxClick()`
 
-4. Keep the hint text "Проверим, свободна ли тема..." below.
+4. **«Хочу подумать»** — возвращаем стиль обычной кнопки с фоном (`bg-muted text-muted-foreground rounded-2xl py-3`), как было раньше.
 
-### Technical details
+5. Убираем строку «Написать в:» с pill-кнопками — она больше не нужна.
 
-- Single file edit: `src/components/quiz/QuizResults.tsx`, lines 352-402
-- No new components needed
-- Consent/disabled logic stays the same
+### Технические детали
+
+- Один файл: `src/components/quiz/QuizResults.tsx`, строки 352–413
+- Новый `useState<boolean>` для `showMessengerChoice`
+- Consent-логика сохраняется
 
