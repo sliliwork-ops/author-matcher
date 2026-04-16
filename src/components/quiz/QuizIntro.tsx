@@ -38,7 +38,7 @@ export default function QuizIntro({ onStart }: QuizIntroProps) {
         <div className="w-10 h-px bg-white/40 mx-auto mb-6" />
 
         {/* Heading */}
-        <h1 className="font-display text-2xl sm:text-4xl md:text-5xl text-white text-center leading-tight mb-6 uppercase tracking-wide">В КАКОЙ КНИГЕ ВЫ МОЖЕТЕ СТАТЬ СОАВТОРОМ?</h1>
+        <h1 className="font-display text-2xl sm:text-4xl md:text-5xl text-white text-center leading-tight mb-6 uppercase tracking-wide">Узнай, какая книга сделает тебя автором в 2026</h1>
 
         {/* Sub */}
         <p className="text-[hsl(var(--hero-muted))] text-center text-base font-body mb-10 leading-relaxed">Пройдите опрос и получите рекомендации по книге и теме главы</p>
