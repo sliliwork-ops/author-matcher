@@ -358,7 +358,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
             tooltipText={TOOLTIP_TEXT}
             className={`w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'bg-accent text-accent-foreground shadow-lg hover:opacity-90'
+                ? 'bg-[#E67E22] text-white shadow-lg hover:bg-[#CF6E19]'
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
@@ -372,7 +372,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
             tooltipText={TOOLTIP_TEXT}
             className={`w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl font-body font-semibold text-sm tracking-wide transition-all duration-200 active:scale-[0.98] border-2 ${
               consentPD
-                ? 'border-accent text-accent bg-transparent hover:bg-accent/5'
+                ? 'border-[#E67E22] text-[#E67E22] bg-transparent hover:bg-[#E67E22] hover:text-white'
                 : 'border-muted text-muted-foreground cursor-not-allowed bg-transparent'
             }`}
           >
@@ -386,7 +386,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
             tooltipText={TOOLTIP_TEXT}
             className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl font-body font-medium text-sm tracking-wide transition-all duration-200 active:scale-[0.98] ${
               consentPD
-                ? 'bg-[hsl(142,60%,45%)] text-white shadow-md hover:opacity-90'
+                ? 'bg-[#9CA3AF] text-white shadow-md hover:bg-[#6B7280]'
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
             }`}
           >
