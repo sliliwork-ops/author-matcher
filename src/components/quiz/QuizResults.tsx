@@ -221,7 +221,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
   const niche = Array.isArray(answers.q1) ? answers.q1.join(', ') : (answers.q1 || '');
   const format = Array.isArray(answers.q4) ? answers.q4.join(', ') : (answers.q4 || '');
   const selectedTheme = selectedTopics.length > 0 ? selectedTopics.join(', ') : (displayTopics[0]?.title || '');
-  const ctaMessage = `Здравствуйте! Прошла квиз, у меня тема: ${selectedTheme}. Ниша: ${niche}. Формат: ${format}. Хочу обсудить соавторство.`;
+  const ctaMessage = `Здравствуйте! Я хочу обсудить соавторство в книге «${displayBook.title}» с темой: ${selectedTheme}.`;
 
   const TOOLTIP_TEXT = 'Поставьте галочку согласия';
   const MAX_URL = 'https://max.ru/u/f9LHodD0cOJF8s4Orzg-6Vt6TZqUsl45AdY4q3T02maycfiRkQkmLI-poMM';
