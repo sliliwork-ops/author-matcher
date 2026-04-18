@@ -430,7 +430,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
                 consentPD ? 'bg-[#E67E22] hover:bg-[#CF6E19] shadow-lg' : 'bg-[#E67E22]/40 cursor-not-allowed'
               }`}
             >
-              🔥 Обсудить тему с редактором
+              Обсудить тему с редактором
             </DisableableButton>
 
             <div className="text-center mt-3">
