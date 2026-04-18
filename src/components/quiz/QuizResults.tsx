@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { ChevronDown, Check } from 'lucide-react';
+import { ChevronDown, Check, Mail } from 'lucide-react';
 import { z } from 'zod';
 import { QuizResult, TopicCard } from '@/lib/quiz-logic';
 import { QuizAnswers } from '@/lib/quiz-logic';
@@ -340,7 +340,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
           </div>
         </div>
 
-        {/* ── BLOCK 3: PD CONSENT (placed before email so it gates it) ── */}
+        {/* ── PD CONSENT (gates CTA + email submit) ── */}
         <div className="mb-6">
           <ConsentCheckbox checked={consentPD} onChange={() => setConsentPD((v) => !v)}>
             Я согласен(на) на обработку персональных данных и принимаю{' '}
@@ -355,12 +355,42 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
           </ConsentCheckbox>
         </div>
 
-        {/* ── BLOCK 2: EMAIL CAPTURE ─────────────────────── */}
-        <div className="mb-8 rounded-2xl border border-border bg-card p-5">
-          <h3 className="text-lg font-bold text-foreground mb-1">Получить концепцию книги на почту</h3>
-          <p className="font-body text-xs text-muted-foreground mb-4">
-            Персональный разбор: тема, структура, для кого подойдёт и как усилит вашу экспертность
-          </p>
+        {/* ── PRIMARY CTA ──────────────────────────────── */}
+        <div className="mb-8">
+          <DisableableButton
+            onClick={handleTelegramCta}
+            disabled={!consentPD}
+            tooltipText={TOOLTIP_TEXT}
+            className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide transition-all duration-200 active:scale-[0.98] text-white ${
+              consentPD ? 'bg-[#E67E22] hover:bg-[#CF6E19] shadow-lg' : 'bg-[#E67E22]/40 cursor-not-allowed'
+            }`}
+          >
+             Обсудить тему с редактором
+          </DisableableButton>
+
+          <div className="text-center mt-3">
+            <button
+              type="button"
+              onClick={handleMaxCta}
+              disabled={!consentPD}
+              className="font-body underline underline-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ fontSize: '14px', color: '#9CA3AF' }}
+              onMouseEnter={(e) => { if (consentPD) e.currentTarget.style.color = '#6B7280'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#9CA3AF'; }}
+            >
+              Нет Telegram? Написать в MAX
+            </button>
+          </div>
+        </div>
+
+        {/* ── EMAIL CAPTURE (soft lead magnet) ─────────── */}
+        <div className="mb-8 rounded-2xl border border-border/50 bg-muted/40 p-5">
+          <div className="flex items-start gap-3 mb-4">
+            <Mail size={20} className="text-accent flex-shrink-0 mt-0.5" />
+            <h3 className="text-base font-bold text-foreground leading-snug">
+              Хочу получить концепцию книги на почту и подробнее ознакомиться с условиями
+            </h3>
+          </div>
 
           {!emailSubmitted ? (
             <>
@@ -418,36 +448,6 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
             </div>
           )}
         </div>
-
-        {/* ── BLOCK 4: CTA (visible only after email submitted) ── */}
-        {emailSubmitted && (
-          <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-            <DisableableButton
-              onClick={handleTelegramCta}
-              disabled={!consentPD}
-              tooltipText={TOOLTIP_TEXT}
-              className={`w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-body font-bold text-base tracking-wide transition-all duration-200 active:scale-[0.98] text-white ${
-                consentPD ? 'bg-[#E67E22] hover:bg-[#CF6E19] shadow-lg' : 'bg-[#E67E22]/40 cursor-not-allowed'
-              }`}
-            >
-               Обсудить тему с редактором
-            </DisableableButton>
-
-            <div className="text-center mt-3">
-              <button
-                type="button"
-                onClick={handleMaxCta}
-                disabled={!consentPD}
-                className="font-body underline underline-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ fontSize: '14px', color: '#9CA3AF' }}
-                onMouseEnter={(e) => { if (consentPD) e.currentTarget.style.color = '#6B7280'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = '#9CA3AF'; }}
-              >
-                Нет Telegram? Написать в MAX
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </TooltipProvider>
   );
