@@ -192,7 +192,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
   async function handleEmailSubmit() {
     const parsed = emailSchema.safeParse(email);
     if (!parsed.success) {
-      toast.error(parsed.error.errors[0].message);
+      toast.error(parsed.error.issues[0].message);
       return;
     }
     if (!consentPD) {
