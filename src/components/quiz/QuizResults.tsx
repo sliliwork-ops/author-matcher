@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { ChevronDown, Check } from 'lucide-react';
+import { ChevronDown, Check, Mail } from 'lucide-react';
 import { z } from 'zod';
 import { QuizResult, TopicCard } from '@/lib/quiz-logic';
 import { QuizAnswers } from '@/lib/quiz-logic';
