@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { ChevronDown, Check, Mail } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { z } from 'zod';
 import { QuizResult, TopicCard } from '@/lib/quiz-logic';
 import { QuizAnswers } from '@/lib/quiz-logic';
@@ -125,12 +125,6 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
   const [insightLoading, setInsightLoading] = useState(true);
   const [consentPD, setConsentPD] = useState(false);
 
-  // Email block state
-  const [email, setEmail] = useState('');
-  const [marketingConsent, setMarketingConsent] = useState(false);
-  const [emailSubmitting, setEmailSubmitting] = useState(false);
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
-
   const { primaryBook, topics } = result;
 
   useEffect(() => {
@@ -188,34 +182,6 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
   const niche = Array.isArray(answers.q1) ? answers.q1.join(', ') : (answers.q1 || '');
   const selectedTheme = selectedTopics.length > 0 ? selectedTopics.join(', ') : (displayTopics[0]?.title || '');
   const TOOLTIP_TEXT = 'Поставьте галочку согласия';
-
-  async function handleEmailSubmit() {
-    const parsed = emailSchema.safeParse(email);
-    if (!parsed.success) {
-      toast.error(parsed.error.issues[0].message);
-      return;
-    }
-    if (!consentPD) {
-      toast.error(TOOLTIP_TEXT);
-      return;
-    }
-    setEmailSubmitting(true);
-    const utm = getUtm();
-    await postWebhook({
-      event: 'email_submitted',
-      timestamp: new Date().toISOString(),
-      session_id: sessionId,
-      email: parsed.data,
-      marketing_consent: marketingConsent,
-      niche,
-      themes: displayTopics.map((t) => t.title),
-      selected_theme: selectedTopics.length > 0 ? selectedTheme : null,
-      book_title: displayBook.title,
-      ...utm,
-    });
-    setEmailSubmitting(false);
-    setEmailSubmitted(true);
-  }
 
   function handleTelegramCta() {
     if (!consentPD) return;
@@ -383,71 +349,6 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
           </div>
         </div>
 
-        {/* ── EMAIL CAPTURE (soft lead magnet) ─────────── */}
-        <div className="mb-8 rounded-2xl border border-border/50 bg-muted/40 p-5">
-          <div className="flex items-start gap-3 mb-4">
-            <Mail size={20} className="text-accent flex-shrink-0 mt-0.5" />
-            <h3 className="text-base font-bold text-foreground leading-snug">
-              Хочу получить концепцию книги на почту и подробнее ознакомиться с условиями
-            </h3>
-          </div>
-
-          {!emailSubmitted ? (
-            <>
-              <div className="flex flex-col sm:flex-row gap-2 mb-3">
-                <input
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  placeholder="Ваш email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 h-12 rounded-xl border border-border bg-background px-4 font-body text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                />
-                <DisableableButton
-                  onClick={handleEmailSubmit}
-                  disabled={!consentPD || emailSubmitting}
-                  tooltipText={!consentPD ? TOOLTIP_TEXT : undefined}
-                  className={`h-12 px-5 rounded-xl font-body font-bold text-sm transition-all duration-200 active:scale-[0.98] text-white ${
-                    consentPD && !emailSubmitting
-                      ? 'bg-[#2D5016] hover:bg-[#1A3A0E]'
-                      : 'bg-[#2D5016]/40 cursor-not-allowed'
-                  }`}
-                >
-                  {emailSubmitting ? 'Отправка…' : 'Отправить концепцию'}
-                </DisableableButton>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setMarketingConsent((v) => !v)}
-                className="flex items-start gap-2.5 text-left group w-full"
-              >
-                <span
-                  className={`mt-0.5 flex-shrink-0 w-4 h-4 rounded border transition-all duration-200 flex items-center justify-center ${
-                    marketingConsent ? 'bg-accent border-accent' : 'border-border group-hover:border-accent/50'
-                  }`}
-                >
-                  {marketingConsent && (
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-accent-foreground">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  )}
-                </span>
-                <span className="font-body leading-relaxed" style={{ fontSize: '14px', color: '#6B7280' }}>
-                  Хочу получать полезные материалы о книгах и экспертности
-                </span>
-              </button>
-            </>
-          ) : (
-            <div className="flex items-start gap-2.5 rounded-xl bg-accent/10 border border-accent/30 px-4 py-3">
-              <Check size={18} className="text-accent flex-shrink-0 mt-0.5" />
-              <p className="font-body text-sm text-foreground leading-relaxed">
-                Концепция будет отправлена в течение 15 минут
-              </p>
-            </div>
-          )}
-        </div>
       </div>
     </TooltipProvider>
   );
