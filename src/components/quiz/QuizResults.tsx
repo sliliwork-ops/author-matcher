@@ -189,9 +189,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
       event: 'cta_bot_click',
       timestamp: new Date().toISOString(),
       session_id: sessionId,
-      email,
       selected_theme: selectedTheme,
-      action: 'bot_tg',
     });
     window.open(`${TG_BOT_URL_PREFIX}${sessionId}`, '_blank');
   }
@@ -209,9 +207,7 @@ export default function QuizResults({ result, answers, onApply, sessionId }: Qui
       event: 'cta_bot_click',
       timestamp: new Date().toISOString(),
       session_id: sessionId,
-      email,
       selected_theme: selectedTheme,
-      action: 'max',
     });
     setTimeout(() => window.open(MAX_URL, '_blank'), 500);
   }
